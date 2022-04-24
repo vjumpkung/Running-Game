@@ -1,9 +1,13 @@
 from game import Game
 
+'''
+    run 'python main.py' to start this game.
+'''
+
 def main():
     G = Game()
-    while True:
-        G.LoopFunction()
-        
+    G.LoopFunction()
+    
 if __name__ == "__main__":
     main()
+    

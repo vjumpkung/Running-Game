@@ -1,13 +1,20 @@
 import pygame
 from environment.background import Background
 from environment.snail import Snail
+from environment.player import Player
 from settings import Settings, get_fps
 from sys import exit
+from time import time
 
 # loading every class here
 settings = Settings()
-snail = Snail()
 background = Background()
+snail = Snail()
+player = Player()
+
+'''
+    loading constatns from settings.py
+'''
 
 # constants
 NAME = settings.NAME
@@ -54,6 +61,11 @@ class Drawing:
 
 
 class Game:
+
+    '''
+        Loading only one time.
+    '''
+
     def __init__(self):
 
         self.start = StartGame()
@@ -61,27 +73,42 @@ class Game:
         self.clock = Screen().clock
         self.draw = Drawing()
         self.font = Font()
+        self.now_time = time()
+        self.move_per_second = 60
+
+    '''
+        Loop until you stop the game.
+    '''
 
     def LoopFunction(self):
-        # draw everything
-        screen = self.screen
-        screen.blit(self.draw.sky_surface, (0, 0))
-        screen.blit(self.draw.ground_surface, (0, 520))
-        screen.blit(self.draw.font_surface, self.draw.font_position)
-        screen.blit(snail.snail_surface, (snail.xpos, 460))
-        screen.blit(get_fps(self.font.fpsfont, self.clock), (0, 0))
 
-        # snail
-        snail.move_forward(5)  # snail moving
-        if(snail.xpos > WIDTH + 100):
-            snail.move_to_default()  # if snail out of screen
+        running = True
 
-        # updating display
-        pygame.display.update()
-        self.clock.tick(FPS)
+        while running:
+            # tick
+            self.ms_frame = self.clock.tick(FPS)
+            self.move_per_frame = round(
+                self.move_per_second * self.ms_frame / 1000)
 
-        # quit
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+            # draw everything
+            screen = self.screen
+            screen.blit(self.draw.sky_surface, (0, 0))
+            screen.blit(self.draw.ground_surface, (0, 540))
+            screen.blit(self.draw.font_surface, self.draw.font_position)
+            screen.blit(player.player_surface, player.player_rect)
+            screen.blit(snail.snail_surface, snail.snail_rect)
+            screen.blit(get_fps(self.font.fpsfont, self.clock), (0, 0))
+
+            # entities
+            snail.move(self.move_per_frame)
+            # player.move(self.move_per_frame)
+
+            # updating display
+            pygame.display.update()
+            screen.fill("lightblue")
+
+            # quit
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    running = False
