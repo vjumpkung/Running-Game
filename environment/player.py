@@ -26,9 +26,9 @@ class Player:
         if self.player_rect.bottom >= 540:
             self.player_rect.bottom = 540
 
-    def add_gravity(self):
+    def add_gravity(self, move_per_frame):
 
-        self.gravity += 1
+        self.gravity += move_per_frame
 
     def set_gravity(self, value):
 

@@ -129,8 +129,7 @@ class Game:
         while running:
             # tick
             self.ms_frame = self.clock.tick(FPS)
-            self.move_per_frame = round(
-                self.move_per_second * self.ms_frame / 1000, 1)
+            self.move_per_frame = self.move_per_second * self.ms_frame / 1000
 
             if self.isActive:
 
@@ -159,7 +158,7 @@ class Game:
 
                 # player
 
-                player.add_gravity()
+                player.add_gravity(self.move_per_frame)
                 player.move(self.move_per_frame)
                 player.floor()
 
@@ -172,6 +171,8 @@ class Game:
                     # update max score
                     maximum.update_score(self.score.score)
                     self.score.update_best_score(self.draw)
+                    pygame.draw.rect(screen, "lightblue", self.draw.max_font_rect)
+                    screen.blit(self.draw.max_font, self.draw.max_font_rect)
                     continue
 
             else:
@@ -185,9 +186,11 @@ class Game:
             self.kb = KeyboardInput()
 
             # updating display
+            
             pygame.display.update()
 
-            # quit
+            # event handle
+            
             for event in pygame.event.get():
 
                 # check quit event

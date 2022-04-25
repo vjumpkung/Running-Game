@@ -7,6 +7,6 @@ from game import Game
 def main():
     G = Game()
     G.LoopFunction()
-    
+
 if __name__ == "__main__":
     main()
