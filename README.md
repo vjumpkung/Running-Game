@@ -9,7 +9,7 @@ A simple game with big red square and small black square moving thing. You must 
 
 # Features
 
-- every 5 marks the small sqaure black things will moving faster.
+- every 5 marks the small sqaure black things will moving faster. (Maximum acceleration 20 unit)
 - save personal best score by creating running.save (you can read how it's work in savegenerator.py)
 
 [screenshot]: screenshot.png
