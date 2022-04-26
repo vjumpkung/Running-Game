@@ -1,6 +1,6 @@
 import pygame
 from random import randint
-from settings import Settings
+from utils.settings import Settings
 
 WIDTH = Settings().WIDTH
 

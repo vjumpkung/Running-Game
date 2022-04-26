@@ -1,3 +1,4 @@
 {
-    "name": "Running Game"
+    "name": "Running Game",
+    "URL" : "http://localhost:5000"
 }

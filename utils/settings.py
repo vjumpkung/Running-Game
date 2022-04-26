@@ -1,5 +1,5 @@
 import json
-from savegenerator import SaveGenerator
+from utils.savegenerator import SaveGenerator
 
 sg = SaveGenerator()
 
@@ -13,7 +13,8 @@ class Settings:
         # default game size
         self.WIDTH = 1280
         self.HEIGHT = 720
-        self.NAME = r['name']
+        self.URL = r['URL']
+        self.NAME = "Running Game"
 
 # manage maximum score and save it
 class MaximumScore:

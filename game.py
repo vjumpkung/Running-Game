@@ -3,7 +3,7 @@ from random import randint
 from environment.background import Background
 from environment.snail import Snail
 from environment.player import Player
-from settings import Settings, get_fps, MaximumScore
+from utils.settings import Settings, get_fps, MaximumScore
 from key_input import KeyboardInput
 from time import time
 
@@ -173,7 +173,7 @@ class Game:
                     self.score.update_best_score(self.draw)
                     pygame.draw.rect(screen, "lightblue", self.draw.max_font_rect)
                     screen.blit(self.draw.max_font, self.draw.max_font_rect)
-
+                    pygame.display.update(self.draw.max_font_rect)
             else:
                 '''
                     GAMEOVER when self.isActive = False
@@ -195,6 +195,10 @@ class Game:
                 # check quit event
 
                 if event.type == pygame.QUIT:
+                    snail.reset_acceleration()
+                    snail.move_to_default()
+                    self.score.reset_score(self.draw)
+                    self.isActive = False
                     pygame.quit()
                     running = False
 

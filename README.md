@@ -12,22 +12,27 @@ A simple game with big red square and small black square moving thing. You must 
 - every 5 marks the small sqaure black things will moving faster. (Maximum acceleration 20 unit)
 - save personal best score by creating running.save (you can read how it's work in savegenerator.py)
 
-[screenshot]: screenshot.png
-
 # Requirement Software
 
-- python 3.6 or newer
+- python 3.6 or newer with tkinter
 - pygame
+- bcrypt
+- requests
 
 # Launch Instructions
 
     git clone https://github.com/Vjumpkung/Running-Game.git
     cd Running-Game
     pip install -r requirement.txt
-    python main.py
+    python RunningGame.py
 
 # Screenshot
 
+[screenshot]: screenshot.png
+[mainmenu]: main-menu.png
+[mainmenu2]: main-menu2.png
+
+![][mainmenu] ![][mainmenu2]
 ![][screenshot]
 
 # Reference

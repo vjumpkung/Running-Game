@@ -1,5 +1,5 @@
 import pygame
-from settings import Settings
+from utils.settings import Settings
 
 settings = Settings()
 

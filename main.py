@@ -1,3 +1,4 @@
+import sys
 from game import Game
 
 '''
@@ -7,6 +8,7 @@ from game import Game
 def main():
     G = Game()
     G.LoopFunction()
+    return None
 
 if __name__ == "__main__":
     main()
