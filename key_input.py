@@ -10,19 +10,15 @@ class KeyboardInput:
     # jump key 
     def jump(self, event, button):
         if event.type == pygame.KEYDOWN:
-            if event.key == button:
-                print('space bar')
+            if event.key == button or event.key == pygame.K_UP:
                 return True
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == pygame.BUTTON_LEFT:
-                print('left click')
                 return True
-
         return False
 
     # retry key
     def retry(self, event ,button):
         if event.type == pygame.KEYDOWN:
             if event.key == button:
-                print('r')
                 return True

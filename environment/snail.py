@@ -14,19 +14,19 @@ class Snail:
     def __init__(self):
         self.snail_surface = pygame.Surface((40, 40))
         self.xpos = WIDTH
-        self.speed = randint(5,10)
+        self.speed = 6
         self.snail_rect = self.snail_surface.get_rect(
             midbottom=(self.xpos, 540))
         self.acceleration = 0
 
     def random_size(self):
-        self.size = randint(40,80)
+        self.size = randint(40, 60)
         self.snail_surface = pygame.Surface((self.size, self.size))
         self.snail_rect = self.snail_surface.get_rect(
             midbottom=(self.xpos, 540))
 
     def random_speed(self):
-        self.speed = randint(5 + self.acceleration,10 + self.acceleration) 
+        self.speed = randint(6 + self.acceleration, 10 + self.acceleration)
 
     def move_forward(self, move_per_frame):
         self.snail_rect.x -= self.speed * move_per_frame
@@ -43,7 +43,11 @@ class Snail:
             return True
 
     def add_acceleration(self):
-        self.acceleration += 2
-        
+        print(self.acceleration)
+        if self.acceleration < 20:
+            self.acceleration += 1
+        else:
+            pass
+
     def reset_acceleration(self):
         self.acceleration = 0

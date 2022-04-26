@@ -173,7 +173,6 @@ class Game:
                     self.score.update_best_score(self.draw)
                     pygame.draw.rect(screen, "lightblue", self.draw.max_font_rect)
                     screen.blit(self.draw.max_font, self.draw.max_font_rect)
-                    continue
 
             else:
                 '''
@@ -199,16 +198,16 @@ class Game:
                     pygame.quit()
                     running = False
 
-                # using SPACE or left click button to jump
+                # using SPACE , left click button or up button to jump
 
-                if self.kb.jump(event, pygame.K_SPACE) and player.player_rect.bottom == 540:
-                    player.set_gravity(-23)
+                if self.kb.jump(event, pygame.K_SPACE) and 540 <= player.player_rect.bottom <= 542:
+                    player.set_gravity(-27)
 
                 # using r to retry game and reset score to 0
 
                 if self.kb.retry(event, pygame.K_r) and not self.isActive:
-                    self.isActive = True
+                    snail.reset_acceleration()
                     snail.move_to_default()
                     self.score.reset_score(self.draw)
-                    snail.reset_acceleration()
+                    self.isActive = True
                     continue

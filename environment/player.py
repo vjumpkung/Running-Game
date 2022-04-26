@@ -28,7 +28,7 @@ class Player:
 
     def add_gravity(self, move_per_frame):
 
-        self.gravity += move_per_frame
+        self.gravity += move_per_frame * 1.5
 
     def set_gravity(self, value):
 

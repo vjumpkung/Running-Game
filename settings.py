@@ -1,12 +1,11 @@
 import json
+from savegenerator import SaveGenerator
+
+sg = SaveGenerator()
 
 # read config
 with open("config.json") as f:
     r = json.load(f)
-
-# read personal best score
-with open("maxscore.json") as s:
-    q = json.load(s)
 
 # you can customize title
 class Settings:
@@ -20,13 +19,12 @@ class Settings:
 class MaximumScore:
     def __init__(self):
         # get max score
-        self.personal_best = q['personal_best']
+        self.personal_best = sg.read_file()
     def update_score(self, newscore):
+        # save best score in local
         if newscore > self.personal_best:
+            sg.save_file(newscore)
             self.personal_best = newscore
-            q['personal_best'] = self.personal_best
-            with open('maxscore.json', 'w') as f:
-                json.dump(q, f)
                 
 # get framerate in game
 def get_fps(fpsfont, clock):

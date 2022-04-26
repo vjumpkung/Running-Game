@@ -4,13 +4,13 @@ A simple game with big red square and small black square moving thing. You must 
 
 # How to play?
 
-- press <kbd>SPACEBAR</kbd> or <kbd>LEFTCLICK</kbd> to jump
+- press <kbd>SPACEBAR</kbd> or <kbd>LEFTCLICK</kbd> or <kbd>↑</kbd> to jump
 - press <kbd>R</kbd> to retry.
 
 # Features
 
-- every 5 marks the small sqaure black things will moving faster
-- save personal best score by dumping into json (you can edit score lol)
+- every 5 marks the small sqaure black things will moving faster.
+- save personal best score by creating running.save (you can read how it's work in savegenerator.py)
 
 [screenshot]: screenshot.png
 
