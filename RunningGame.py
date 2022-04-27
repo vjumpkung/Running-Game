@@ -1,6 +1,7 @@
 import tkinter as tk
 from verify import Authenticate
 from main import main
+from datetime import datetime
 
 auth = Authenticate()
 
@@ -100,6 +101,7 @@ class App(tk.Tk):
     def button_clicked(self):
         self.username = self.textbox.get()
         if auth.login(self.textbox.get(), self.textbox2.get()):
+            print(f"{datetime.now()} : welcome {self.username}")
             self.textbox.delete(0, 'end')
             self.textbox2.delete(0, 'end')
             self.status.set("complete")
@@ -109,13 +111,16 @@ class App(tk.Tk):
             self.pack_frame3.pack_forget()
             self.show_menu()
         else:
-            self.status.set("Not found in database")
+            print(f"{datetime.now()} : {self.username} is trying to login.")
+            self.status.set("Not found in database please check your username or password")
         self.clear_text()
 
     def button_clicked2(self):
         if auth.register(self.textbox.get(), self.textbox2.get()):
+            print(f"{datetime.now()} : Register Complete.")
             self.status.set("Register Complete , you can login now")
         else:
+            print(f"{datetime.now()} : You are already registered.")
             self.status.set("You are already registered")
         self.clear_text()
         
@@ -129,9 +134,12 @@ class App(tk.Tk):
 
     def play_game(self):
         self.withdraw()
-        main()
+        print(f"{datetime.now()} : {self.username} is launching running game.")
+        main(self.username)
         self.deiconify()
 
 if __name__ == "__main__":
+    print(f"{datetime.now()} : Welcome to running game have a nice day.")
     app = App()
     app.mainloop()
+    print(f"{datetime.now()} : GOODBYE.")

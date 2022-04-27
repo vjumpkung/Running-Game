@@ -4,7 +4,7 @@ from utils.savegenerator import SaveGenerator
 sg = SaveGenerator()
 
 # read config
-with open("config.json") as f:
+with open("settings.json") as f:
     r = json.load(f)
 
 # you can customize title
@@ -15,17 +15,8 @@ class Settings:
         self.HEIGHT = 720
         self.URL = r['URL']
         self.NAME = "Running Game"
-
-# manage maximum score and save it
-class MaximumScore:
-    def __init__(self):
-        # get max score
-        self.personal_best = sg.read_file()
-    def update_score(self, newscore):
-        # save best score in local
-        if newscore > self.personal_best:
-            sg.save_file(newscore)
-            self.personal_best = newscore
+        self.USERNAME = r['USERNAME']
+        self.PASSWORD = r['PASSWORD']
                 
 # get framerate in game
 def get_fps(fpsfont, clock):

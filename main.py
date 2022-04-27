@@ -5,8 +5,8 @@ from game import Game
     run 'python main.py' to start this game.
 '''
 
-def main():
-    G = Game()
+def main(username):
+    G = Game(username)
     G.LoopFunction()
     return None
 

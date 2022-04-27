@@ -1,12 +1,12 @@
 import pygame
-from random import randint
+from datetime import datetime
 from environment.background import Background
 from environment.snail import Snail
 from environment.player import Player
-from utils.settings import Settings, get_fps, MaximumScore
+from utils.settings import Settings, get_fps
+from utils.queries import MaximumScore
 from key_input import KeyboardInput
 from time import time
-
 
 # loading every class here
 settings = Settings()
@@ -36,7 +36,7 @@ class StartGame:
 class Font:
     def __init__(self):
         self.font = pygame.font.Font('font/Minecraft.ttf', 50)
-        self.fpsfont = pygame.font.Font('font/Minecraft.ttf', 20)
+        self.fpsfont = pygame.font.Font('font/Minecraftia-Regular.ttf', 20)
         self.score = pygame.font.Font('font/Minecraft.ttf', 30)
 
 # loading screen
@@ -72,11 +72,25 @@ class Drawing:
         # drawing score
         self.score_font = font.score.render(f'SCORE : 0', False, 'Black')
         self.score_font_rect = self.score_font.get_rect(topleft=(10, 50))
-
+        
+        # drawing username font
+        self.user_font = font.fpsfont.render('GUEST', False, 'Black')
+        self.user_font_rect = self.user_font.get_rect(topleft=(1280,700))
+        
+        
+    def username_font(self, username: str):
+        
+        font = Font()
+        
+        # drawing username
+        self.user_font = font.fpsfont.render(username, False, 'Black')
+        self.user_font_rect = self.user_font.get_rect(bottomright=(1270,710))
+        
         # drawing personal best
         self.max_font = font.score.render(
-            f'PERSONAL BEST : {maximum.personal_best}', False, 'Black')
+            f'PERSONAL BEST : {maximum.get_max_score(username)}', False, 'Black')
         self.max_font_rect = self.max_font.get_rect(topleft=(10, 80))
+        
 
 # update score and save personal best score
 class Score:
@@ -95,9 +109,9 @@ class Score:
         draw.score_font = self.font.score.render(
             f'SCORE : {self.score}', False, 'Black')
 
-    def update_best_score(self, draw):
+    def update_best_score(self, draw, username):
         draw.max_font = self.font.score.render(
-            f'PERSONAL BEST : {maximum.personal_best}', False, 'Black')
+            f'PERSONAL BEST : {maximum.get_max_score(username)}', False, 'Black')
 
 # loading everything goes here.
 class Game:
@@ -106,8 +120,9 @@ class Game:
         Loading only one time.
     '''
 
-    def __init__(self):
-
+    def __init__(self,username):
+        
+        # game initialize
         self.start = StartGame()
         self.screen = Screen().screen
         self.clock = Screen().clock
@@ -117,6 +132,10 @@ class Game:
         self.now_time = time()
         self.move_per_second = 60
         self.isActive = True
+
+        # put username
+        self.username = username
+        self.draw.username_font(self.username)
 
     '''
         Loop until you stop the game.
@@ -148,6 +167,7 @@ class Game:
                 screen.blit(get_fps(self.font.fpsfont, self.clock), (10, 10))
                 screen.blit(self.draw.score_font, self.draw.score_font_rect)
                 screen.blit(self.draw.max_font, self.draw.max_font_rect)
+                screen.blit(self.draw.user_font, self.draw.user_font_rect)
 
                 # entities
 
@@ -165,12 +185,14 @@ class Game:
                 # collide check
 
                 if player.isCollide(snail.snail_rect):
+                    print(f"{datetime.now()} : OOPS game over.")
                     # stopping game
                     self.isActive = False
 
                     # update max score
-                    maximum.update_score(self.score.score)
-                    self.score.update_best_score(self.draw)
+                    maximum.update_score(self.score.score, self.username)
+                    self.score.update_best_score(self.draw, self.username)
+                    screen.blit(self.draw.max_font, self.draw.max_font_rect)
                     pygame.draw.rect(screen, "lightblue", self.draw.max_font_rect)
                     screen.blit(self.draw.max_font, self.draw.max_font_rect)
                     pygame.display.update(self.draw.max_font_rect)
@@ -195,6 +217,7 @@ class Game:
                 # check quit event
 
                 if event.type == pygame.QUIT:
+                    print(f"{datetime.now()} : EXIT.")
                     snail.reset_acceleration()
                     snail.move_to_default()
                     self.score.reset_score(self.draw)
@@ -210,6 +233,7 @@ class Game:
                 # using r to retry game and reset score to 0
 
                 if self.kb.retry(event, pygame.K_r) and not self.isActive:
+                    print(f"{datetime.now()} : Retry!!!")
                     snail.reset_acceleration()
                     snail.move_to_default()
                     self.score.reset_score(self.draw)

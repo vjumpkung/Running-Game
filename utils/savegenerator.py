@@ -1,6 +1,9 @@
+import json
 class SaveGenerator:
 
     '''
+
+        UNUSED BUT IT WILL COMEBACK LATER
 
         when game end and you get best score it will generate running.save
 
@@ -26,15 +29,19 @@ class SaveGenerator:
                            for i in string_hashed.split("0o54")]).split("_")[-1]
         return int(unhashed)
 
-    def save_file(self, score):
+    def save_file(self, best_score, username):
         with open("running.save", "w+") as f:
-            f.truncate(0)
-            f.writelines(self.encrypt(score))
-
-    def read_file(self):
+            
+            self.scoreboard[username] = self.encrypt(best_score)
+            
+            json.dump(self.scoreboard, f, indent=2)
+            
+    def read_file(self, username):
         try:
             with open("running.save", "r+") as f:
-                s = f.read()
-            return self.decrypt(s)
-        except FileNotFoundError:
-            return 0
+                s = json.load(f)
+            self.scoreboard = s
+            return self.decrypt(s[username])
+        except:
+            self.scoreboard.setdefault(username, 0)
+            return self.scoreboard[username]
