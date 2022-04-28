@@ -1,3 +1,4 @@
+from typing import List
 import pymongo
 from datetime import datetime
 from utils.settings import Settings
@@ -18,7 +19,6 @@ def get_score(username:str):
     if len(q) == 0:
         return False
     else:
-        print(f"{datetime.now()} : {username} get his/her best score.")
         return q[0]['score']
     
 def update_score(username:str, score:int):
@@ -31,6 +31,10 @@ def update_score(username:str, score:int):
     print(f"{datetime.now()} : {username} has updated new record.")
     col.update_one(argss,n)
     
+def get_top_five() -> List:
+    #query
+    return list(col.find({}, {"username": 1, "score": 1, '_id': 0}).sort('score',-1).limit(5))
+        
 # manage maximum score and save it
 class MaximumScore:
         

@@ -12,6 +12,7 @@ A simple game with big red square and small black square moving thing. You must 
 - every 5 marks the small sqaure black things will moving faster. (Maximum acceleration 20 unit)
 - login and register system
 - save personal best score in database
+- real time scoreboard
 
 # Requirement Software
 

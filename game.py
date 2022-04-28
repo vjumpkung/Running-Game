@@ -4,7 +4,7 @@ from environment.background import Background
 from environment.snail import Snail
 from environment.player import Player
 from utils.settings import Settings, get_fps
-from utils.queries import MaximumScore
+from utils.queries import MaximumScore, get_top_five
 from key_input import KeyboardInput
 from time import time
 
@@ -91,6 +91,15 @@ class Drawing:
             f'PERSONAL BEST : {maximum.get_max_score(username)}', False, 'Black')
         self.max_font_rect = self.max_font.get_rect(topleft=(10, 80))
         
+    def scoreboard(self):
+        
+        self.Top_Five = get_top_five()
+        
+        font = Font()
+        
+        for idx,val in enumerate(self.Top_Five):
+            exec(f"self.number{idx}_font = font.fpsfont.render('{idx+1}. {val['username']} : {val['score']}', False, 'Black')")
+            exec(f"self.number{idx}_font_rect = self.number{idx}_font.get_rect(topleft=(1050,idx*25+10))")
 
 # update score and save personal best score
 class Score:
@@ -136,6 +145,7 @@ class Game:
         # put username
         self.username = username
         self.draw.username_font(self.username)
+        self.draw.scoreboard()
 
     '''
         Loop until you stop the game.
@@ -169,10 +179,17 @@ class Game:
                 screen.blit(self.draw.max_font, self.draw.max_font_rect)
                 screen.blit(self.draw.user_font, self.draw.user_font_rect)
 
+                
                 # entities
 
                 if(snail.move(self.move_per_frame)):
                     self.score.update_score(self.draw)
+                    maximum.update_score(self.score.score, self.username)
+                    self.score.update_best_score(self.draw, self.username)
+                    screen.blit(self.draw.max_font, self.draw.max_font_rect)
+                    pygame.draw.rect(screen, "lightblue", self.draw.max_font_rect)
+                    screen.blit(self.draw.max_font, self.draw.max_font_rect)
+                    pygame.display.update(self.draw.max_font_rect)
                     if self.score.score % 5 == 0:
                         snail.add_acceleration()
 
@@ -196,11 +213,17 @@ class Game:
                     pygame.draw.rect(screen, "lightblue", self.draw.max_font_rect)
                     screen.blit(self.draw.max_font, self.draw.max_font_rect)
                     pygame.display.update(self.draw.max_font_rect)
+                    self.draw.scoreboard()
             else:
                 '''
                     GAMEOVER when self.isActive = False
                 '''
                 screen.blit(self.draw.gameover, self.draw.gameover_rect)
+
+            # scoreboard update
+
+            for idx,val in enumerate(self.draw.Top_Five):
+                exec(f"screen.blit(self.draw.number{idx}_font, self.draw.number{idx}_font_rect)")
 
             # get keyboard input
 
@@ -239,3 +262,18 @@ class Game:
                     self.score.reset_score(self.draw)
                     self.isActive = True
                     continue
+                
+            # updating scoreboard every 10 seconds and update personal best
+            if(time() - self.now_time > 10):
+                self.draw.scoreboard()
+                self.now_time = time()
+                print(f'{datetime.now()} : update scoreboard')
+                
+                # update max score
+                maximum.update_score(self.score.score, self.username)
+                self.score.update_best_score(self.draw, self.username)
+                screen.blit(self.draw.max_font, self.draw.max_font_rect)
+                pygame.draw.rect(screen, "lightblue", self.draw.max_font_rect)
+                screen.blit(self.draw.max_font, self.draw.max_font_rect)
+                pygame.display.update(self.draw.max_font_rect)
+                self.draw.scoreboard()
