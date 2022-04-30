@@ -1,7 +1,4 @@
 import json
-from utils.savegenerator import SaveGenerator
-
-sg = SaveGenerator()
 
 # read config
 with open("settings.json") as f:
@@ -13,8 +10,10 @@ class Settings:
         # default game size
         self.WIDTH = 1280
         self.HEIGHT = 720
-        self.URL = r['URL']
         self.NAME = "Running Game"
+        
+        # for connecting MongoDB
+        self.URL = r['URL']
         self.USERNAME = r['USERNAME']
         self.PASSWORD = r['PASSWORD']
                 

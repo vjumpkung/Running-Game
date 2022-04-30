@@ -25,29 +25,38 @@ FPS = 60
 WIDTH = settings.WIDTH
 HEIGHT = settings.HEIGHT
 
-# pygame init
 class StartGame:
+    
+    # loading pygame
+    
     def __init__(self):
         pygame.init()
         pygame.display.set_caption(NAME)
 
 
-# loading font and size
 class Font:
+    
+    # loading font and size.
+    
     def __init__(self):
         self.font = pygame.font.Font('font/Minecraft.ttf', 50)
         self.fpsfont = pygame.font.Font('font/Minecraftia-Regular.ttf', 20)
         self.score = pygame.font.Font('font/Minecraft.ttf', 30)
 
-# loading screen
 class Screen:
+    
+    # setup screen size and clock
+    
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
 
-# drawing font
 class Drawing:
     def __init__(self):
+
+        '''
+            drawing every surface.
+        '''
 
         font = Font()
 
@@ -93,6 +102,8 @@ class Drawing:
         
     def scoreboard(self):
         
+        # get Top 5 score and show it in leaderboard (Top-Right screen)
+    
         self.Top_Five = get_top_five()
         
         font = Font()
@@ -101,24 +112,38 @@ class Drawing:
             exec(f"self.number{idx}_font = font.fpsfont.render('{idx+1}. {val['username']} : {val['score']}', False, 'Black')")
             exec(f"self.number{idx}_font_rect = self.number{idx}_font.get_rect(topleft=(1050,idx*25+10))")
 
-# update score and save personal best score
+
 class Score:
+    
+    # update score and save personal best score
+    
     def __init__(self):
+        
+        # initialize score = 0
+        
         self.score = 0
         self.font = Font()
 
     def update_score(self, draw):
+
+        # update score and draw new score into screen.
 
         self.score += 1
         draw.score_font = self.font.score.render(
             f'SCORE : {self.score}', False, 'Black')
 
     def reset_score(self, draw):
+        
+        # if player collide with snail reset score.
+        
         self.score = 0
         draw.score_font = self.font.score.render(
             f'SCORE : {self.score}', False, 'Black')
 
     def update_best_score(self, draw, username):
+        
+        # if player break new record it will update personal best score.
+        
         draw.max_font = self.font.score.render(
             f'PERSONAL BEST : {maximum.get_max_score(username)}', False, 'Black')
 
@@ -142,7 +167,7 @@ class Game:
         self.move_per_second = 60
         self.isActive = True
 
-        # put username
+        # put username into lower right
         self.username = username
         self.draw.username_font(self.username)
         self.draw.scoreboard()

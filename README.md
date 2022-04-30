@@ -29,6 +29,12 @@ A simple game with big red square and small black square moving thing. You must 
     pip install -r requirement.txt
     python RunningGame.py
 - rename settings.json.example to settings.json and connect MongoDB
+
+# Known Issues
+
+- Querying score speed is depending on internet connection and ping between server. (know but no ways to fix it.)
+- If internet connection is very bad game will freeze for a little bit.
+
 # Screenshot
 
 [screenshot]: screenshot.png

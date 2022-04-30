@@ -1,6 +1,5 @@
 import pygame
 
-
 class KeyboardInput:
     
     # get key press
