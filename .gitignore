@@ -8,3 +8,5 @@ main.exe
 main.spec
 running.save
 RunningGame.spec
+config.py
+output/

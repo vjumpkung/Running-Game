@@ -1,8 +1,13 @@
 import json
 
 # read config
-with open("settings.json") as f:
-    r = json.load(f)
+try:
+    with open("settings.json") as f:
+        r = json.load(f)
+except:
+    import config
+    r = config.server
+
 
 # you can customize title
 
