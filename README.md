@@ -9,15 +9,15 @@ A simple game with big red square and small black square moving thing. You must 
 
 # Features
 
-- every 5 marks the small sqaure black things will moving faster. (Maximum acceleration 20 unit)
+- every 5 marks the small sqaure black things will moving faster. (Maximum acceleration 25 unit)
 - login and register system
-- save personal best score in database
+- save personal best score in database (updating best score every 10 seconds)
 - real time scoreboard (update every 10 seconds)
 
 # Requirement Software
 
-- python 3.6 or newer with tkinter 
-- pygame 
+- python 3.6 or newer with tkinter
+- pygame
 - bcrypt
 - pymongo
 - MongoDB
@@ -28,12 +28,12 @@ A simple game with big red square and small black square moving thing. You must 
     cd Running-Game
     pip install -r requirement.txt
     python RunningGame.py
+
 - rename settings.json.example to settings.json and connect MongoDB
 
 # Known Issues
 
-- Querying score speed is depending on internet connection and ping between server. (know but no ways to fix it.)
-- If internet connection is very bad game will freeze for a little bit.
+- none.
 
 # Screenshot
 
@@ -41,7 +41,7 @@ A simple game with big red square and small black square moving thing. You must 
 [mainmenu]: main-menu.png
 [mainmenu2]: main-menu2.png
 
-![][mainmenu] 
+![][mainmenu]
 ![][mainmenu2]
 ![][screenshot]
 

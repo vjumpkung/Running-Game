@@ -1,4 +1,6 @@
 import json
+
+
 class SaveGenerator:
 
     '''
@@ -31,11 +33,11 @@ class SaveGenerator:
 
     def save_file(self, best_score, username):
         with open("running.save", "w+") as f:
-            
+
             self.scoreboard[username] = self.encrypt(best_score)
-            
+
             json.dump(self.scoreboard, f, indent=2)
-            
+
     def read_file(self, username):
         try:
             with open("running.save", "r+") as f:

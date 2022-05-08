@@ -1,7 +1,7 @@
 from game import Game
 
 '''
-    run RunningGamep.py instead of this.
+    run RunningGame.py instead of this.
 '''
 
 def main(username):

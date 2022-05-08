@@ -1,12 +1,13 @@
 import pygame
 
+
 class KeyboardInput:
-    
+
     # get key press
     def __init__(self):
         self.keys = pygame.key.get_pressed()
 
-    # jump key 
+    # jump key
     def jump(self, event, button):
         if event.type == pygame.KEYDOWN:
             if event.key == button or event.key == pygame.K_UP:
@@ -17,7 +18,7 @@ class KeyboardInput:
         return False
 
     # retry key
-    def retry(self, event ,button):
+    def retry(self, event, button):
         if event.type == pygame.KEYDOWN:
             if event.key == button:
                 return True

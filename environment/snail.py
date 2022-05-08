@@ -43,7 +43,7 @@ class Snail:
             return True
 
     def add_acceleration(self):
-        if self.acceleration < 20:
+        if self.acceleration < 25:
             self.acceleration += 1
         else:
             pass
