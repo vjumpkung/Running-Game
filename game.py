@@ -1,4 +1,3 @@
-from concurrent.futures import thread
 import pygame
 import threading
 from datetime import datetime

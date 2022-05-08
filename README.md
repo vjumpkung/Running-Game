@@ -14,7 +14,7 @@ A simple game with big red square and small black square moving thing. You must 
 - save personal best score in database (updating best score every 10 seconds)
 - real time scoreboard (update every 10 seconds)
 
-# Requirement Software
+# Requirement Software and Libraries
 
 - python 3.6 or newer with tkinter
 - pygame
@@ -29,7 +29,7 @@ A simple game with big red square and small black square moving thing. You must 
     pip install -r requirement.txt
     python RunningGame.py
 
-- rename settings.json.example to settings.json and connect MongoDB
+- rename settings.json.example to settings.json and connect to MongoDB
 
 # Known Issues
 
@@ -37,9 +37,9 @@ A simple game with big red square and small black square moving thing. You must 
 
 # Screenshot
 
-[screenshot]: screenshot.png
-[mainmenu]: main-menu.png
-[mainmenu2]: main-menu2.png
+[screenshot]: assets/screenshot.png
+[mainmenu]: assets/main-menu.png
+[mainmenu2]: assets/main-menu2.png
 
 ![][mainmenu]
 ![][mainmenu2]
